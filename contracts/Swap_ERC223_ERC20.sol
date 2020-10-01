@@ -6,8 +6,8 @@ import "./WSATT.sol";
 
 contract Swap_ERC223_ERC20 is IERC223Recipient
 {
-    IERC223 SATT_addr;
-    WSATT WSATT_addr;
+    IERC223 public SATT_addr;
+    WSATT public WSATT_addr;
 
     constructor(IERC223 _SATT_addr, WSATT _WSATT_addr) public
     {
