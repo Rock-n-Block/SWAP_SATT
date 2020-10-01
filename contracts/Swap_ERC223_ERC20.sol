@@ -6,8 +6,8 @@ import "./WSATT.sol";
 
 contract Swap_ERC223_ERC20 is IERC223Recipient
 {
-    IERC223 public SATT_addr;
-    WSATT public WSATT_addr;
+    IERC223 SATT_addr;
+    WSATT WSATT_addr;
 
     constructor(IERC223 _SATT_addr, WSATT _WSATT_addr) public
     {
@@ -15,7 +15,7 @@ contract Swap_ERC223_ERC20 is IERC223Recipient
         WSATT_addr = _WSATT_addr;
     }
 
-    function tokenFallback(address _from, uint _value, bytes memory _data) public
+    function tokenFallback(address _from, uint _value, bytes32 _data) external
     {
         if (msg.sender == address(SATT_addr))
         {

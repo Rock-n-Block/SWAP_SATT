@@ -44,7 +44,7 @@ contract ERC223Token is IERC223, Ownable {
      * @param _value Amount of tokens that will be transferred.
      * @param _data  Transaction metadata.
      */
-    function transfer(address _to, uint _value, bytes memory _data) public returns (bool success){
+    function transfer(address _to, uint _value, bytes32 _data) public returns (bool success){
         // Standard function transfer similar to ERC20 transfer with no _data .
         // Added due to backwards compatibility reasons .
         balances[msg.sender] = balances[msg.sender].sub(_value);
@@ -67,7 +67,7 @@ contract ERC223Token is IERC223, Ownable {
      * @param _value Amount of tokens that will be transferred.
      */
     function transfer(address _to, uint _value) public returns (bool success){
-        bytes memory empty = hex"00000000";
+        bytes32 empty = hex"00000000";
         balances[msg.sender] = balances[msg.sender].sub(_value);
         balances[_to] = balances[_to].add(_value);
         if(Address.isContract(_to)) {
@@ -88,11 +88,11 @@ contract ERC223Token is IERC223, Ownable {
     function balanceOf(address _owner) public view returns (uint balance) {
         return balances[_owner];
     }
-    
+
     string private _name;
     string private _symbol;
     uint8 private _decimals;
-    
+
     constructor () public {
         _name = "Smart Advertising Transaction Token";
         _symbol = "SATT";
