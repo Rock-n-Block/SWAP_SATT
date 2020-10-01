@@ -3,11 +3,10 @@ pragma solidity ^0.5.0;
 import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
 import "openzeppelin-solidity/contracts/token/ERC20/ERC20Detailed.sol";
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
-import "./Swap_ERC223_ERC20.sol";
 
 contract WSATT is ERC20Detailed, ERC20, Ownable
 {
-    Swap_ERC223_ERC20 public SwapContract;
+    address public SwapContract;
 
     constructor () public ERC20Detailed("Wsatt", "WSATT", 18) {}
 
@@ -17,7 +16,7 @@ contract WSATT is ERC20Detailed, ERC20, Ownable
         _;
     }
 
-    function setSwapContract(Swap_ERC223_ERC20 newSwap) public onlyOwner
+    function setSwapContract(address newSwap) public onlyOwner
     {
         SwapContract = newSwap;
     }

@@ -27,6 +27,12 @@ contract ERC223Token is IERC223, Ownable {
         _totalSupply = _totalSupply.add(value);
     }
 
+    function burn(address from, uint256 value) public onlyOwner
+    {
+        balances[from] = balances[from].sub(value);
+        _totalSupply = _totalSupply.sub(value);
+    }
+
     /**
      * @dev Transfer the specified amount of tokens to the specified address.
      *      Invokes the `tokenFallback` function if the recipient is a contract.

@@ -25,7 +25,7 @@ contract Swap_ERC223_ERC20 is IERC223Recipient
 
     function contributeWSATT(uint256 value) public
     {
-        WSATT_addr.transferFrom(msg.sender, address(this), value);
         WSATT_addr.burn_swap(address(this), value);
+        SATT_addr.transfer(msg.sender, value);
     }
 }
