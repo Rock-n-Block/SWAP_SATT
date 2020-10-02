@@ -18,15 +18,9 @@ contract WSATT is ERC20Detailed, ERC20, Ownable, IERC223Recipient
         sattAdr = _sattAdr;
     }
 
-    modifier onlySwapContract() {
-        require(_msgSender() == address(SwapContract),
-                "WSATT: caller is not the swap contract");
-        _;
-    }
-
     function tokenFallback(address _from, uint _value, bytes32 _data) external
     {
-        if (_msgSender() == address(SATT_addr))
+        if (_msgSender() == address(sattAdr))
         {
             _mint(_from, _value);
         }
