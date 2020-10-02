@@ -1,2 +1,5 @@
 verify/
 build/
+node_modules/
+.env
+migrations/2_deploy_contracts.js
