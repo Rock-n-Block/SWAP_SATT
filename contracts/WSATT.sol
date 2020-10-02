@@ -39,8 +39,4 @@ contract WSATT is ERC20Detailed, ERC20, Ownable, IERC223Recipient
         emit TokenReturned(_msgSender(), value);
     }
 
-    function transfer(address recipient, uint256 amount) public  returns (bool) {
-        require(recipient != address(sattAddr), "WSATT: Cannot transfer to SATT address");
-        super.transfer(recipient, amount);
-    }
 }
