@@ -8,7 +8,7 @@ contract WSATT is ERC20Detailed, ERC20, Ownable
 {
     address public SwapContract;
 
-    constructor () public ERC20Detailed("Wsatt", "WSATT", 18) {}
+    constructor () public ERC20Detailed("Wrapped Smart Advertising Transaction Token", "WSATT", 18) {}
 
     modifier onlySwapContract() {
         require(msg.sender == address(SwapContract),
@@ -21,18 +21,13 @@ contract WSATT is ERC20Detailed, ERC20, Ownable
         SwapContract = newSwap;
     }
 
-    function mint_swap(address account, uint256 amount) public onlySwapContract
+    function mintSwap(address account, uint256 amount) public onlySwapContract
     {
         _mint(account, amount);
     }
 
-    function burn_swap(address account, uint256 amount) public onlySwapContract
+    function burnSwap(address account, uint256 amount) public onlySwapContract
     {
         _burn(account, amount);
-    }
-
-    function mint(address account, uint256 amount) public onlyOwner
-    {
-        _mint(account, amount);
     }
 }
