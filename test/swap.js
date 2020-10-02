@@ -89,30 +89,7 @@ contract(
             ).to.be.bignumber.zero;
         })
 
-        it("#3 should not transfer to SATT", async () => {
-            expect(await sattToken.balanceOf(account1)).to.be.bignumber.zero;
-            expect(await wsattToken.balanceOf(account1)).to.be.bignumber.zero;
-
-            await sattToken.mint(account1, TOKEN_AMOUNT, {from: deployer})
-            expect(
-                await sattToken.balanceOf(account1)
-            ).to.be.bignumber.that.equals(TOKEN_AMOUNT);
-            
-            await sattToken.transfer(wsattToken.address, TOKEN_AMOUNT, ETH_ZERO_ADDERSS, {from: account1})
-            expect(
-                await wsattToken.balanceOf(account1)
-            ).to.be.bignumber.that.equals(TOKEN_AMOUNT);
-            expect(
-                await sattToken.balanceOf(account1)
-            ).to.be.bignumber.zero;
-
-            await expectRevert(
-                wsattToken.transfer(sattToken.address, TOKEN_AMOUNT),
-                "WSATT: Cannot transfer to SATT address"
-            )
-        })
-
-        it("#4 should not withdraw more than swapped before", async () => {
+        it("#3 should not withdraw more than swapped before", async () => {
             expect(await sattToken.balanceOf(account1)).to.be.bignumber.zero;
             expect(await wsattToken.balanceOf(account1)).to.be.bignumber.zero;
 
