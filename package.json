@@ -16,15 +16,19 @@
     "ganache-core": "^2.12.1",
     "openzeppelin-solidity": "^2.5.1",
     "semver": "^7.3.2",
-    "truffle-flattener": "^1.5.0"
+    "solidity-coverage": "^0.7.10",
+    "truffle-flattener": "^1.5.0",
+    "truffle-plugin-verify": "^0.4.0"
   },
   "devDependencies": {},
   "scripts": {
     "compile": "truffle compile",
     "test": "./scripts/test.sh",
+    "deploy-kovan": "./scripts/fix-migrations.sh && truffle migrate --reset --network kovan",
     "deploy-ropsten": "./scripts/fix-migrations.sh && truffle migrate --reset --network ropsten",
     "deploy-mainnet": "./scripts/fix-migrations.sh && truffle migrate --reset --network mainnet",
-    "verify-ropsten": "truffle run verify WSATT --network rinkeby --license GPL-3.0-only",
+    "verify-kovan": "truffle run verify WSATT --network kovan --license GPL-3.0-only",
+    "verify-ropsten": "truffle run verify WSATT --network ropsten --license GPL-3.0-only",
     "verify-mainnet": "truffle run verify  --network mainnet --license GPL-3.0-only"
   },
   "repository": {
