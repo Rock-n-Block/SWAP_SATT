@@ -4,30 +4,37 @@ import "openzeppelin-solidity/contracts/token/ERC20/ERC20.sol";
 import "openzeppelin-solidity/contracts/token/ERC20/ERC20Detailed.sol";
 import "openzeppelin-solidity/contracts/ownership/Ownable.sol";
 
-contract WSATT is ERC20Detailed, ERC20, Ownable
-{
-    address public SwapContract;
+import "./ERC223/IERC223.sol";
+import "./ERC223/IERC223Recipient.sol";
 
-    constructor () public ERC20Detailed("Wrapped Smart Advertising Transaction Token", "WSATT", 18) {}
+contract WSATT is ERC20Detailed, ERC20, Ownable, IERC223Recipient
+{
+    IERC223 public sattAdr;
+
+    constructor (IERC223 _sattAdr)
+        public
+        ERC20Detailed("Wrapped Smart Advertising Transaction Token", "WSATT", 18)
+    {
+        sattAdr = _sattAdr;
+    }
 
     modifier onlySwapContract() {
-        require(msg.sender == address(SwapContract),
+        require(_msgSender() == address(SwapContract),
                 "WSATT: caller is not the swap contract");
         _;
     }
 
-    function setSwapContract(address newSwap) public onlyOwner
+    function tokenFallback(address _from, uint _value, bytes32 _data) external
     {
-        SwapContract = newSwap;
+        if (_msgSender() == address(SATT_addr))
+        {
+            _mint(_from, _value);
+        }
     }
 
-    function mintSwap(address account, uint256 amount) public onlySwapContract
+    function contributeWSATT(uint256 value) public
     {
-        _mint(account, amount);
-    }
-
-    function burnSwap(address account, uint256 amount) public onlySwapContract
-    {
-        _burn(account, amount);
+        _burn(_msgSender(), value);
+        sattAdr.transfer(_msgSender(), value);
     }
 }
